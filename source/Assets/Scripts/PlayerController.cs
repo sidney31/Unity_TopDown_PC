@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Recoil()
     {
-        rb.AddForce(new Vector2(15 * transform.localScale.x, 0), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(15 * -transform.localScale.x, 0), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.1f);
         rb.velocity = new Vector2(0, 0);
     }
