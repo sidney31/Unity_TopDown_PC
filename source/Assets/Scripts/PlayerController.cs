@@ -3,8 +3,12 @@ using System.Collections;
 using UnityEngine;
 using static Objects;
 
+
 public class PlayerController : MonoBehaviour
 {
+
+    public static PlayerController instance;
+
     //others
     [SerializeField] private float speed;
     [SerializeField] private Vector2 movement;

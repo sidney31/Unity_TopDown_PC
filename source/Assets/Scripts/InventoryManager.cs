@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -10,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxStackItems = 20;
     [SerializeField] public int selectedSlot;
     [SerializeField] private Item[] defaultItems;
-    [SerializeField] private Transform MainInventoryWindow;
+    [SerializeField] private RectTransform MainInventoryWindow;
     [SerializeField] private GameObject ShowInvenoryButton;
     [SerializeField] private GameObject HideInvenoryButton;
 
@@ -63,7 +62,8 @@ public class InventoryManager : MonoBehaviour
     public void MainInvenoryWindowChangeShowState()
     {
         Animator MIWanimator = MainInventoryWindow.GetComponent<Animator>();
-        bool state = MainInventoryWindow.position.x < 0;
+        bool state = MainInventoryWindow.anchoredPosition.x < 0;
+        Debug.Log(MainInventoryWindow.anchoredPosition.x);
         MIWanimator.SetTrigger(state ? "Open" : "Close");
         ShowInvenoryButton.SetActive(!state);
         HideInvenoryButton.SetActive(state);
