@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] public int spawnedZombiesAmount;
     [SerializeField] private int maxZombiesAmount;
 
-    private void Start()
+    private void Awake()
     {
         way.x = Random.Range(0, fieldSize);
         way.y = way.x - 3;

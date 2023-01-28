@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ButtonsManager : MonoBehaviour
+public class ButtonsManager : MonoBehaviour, ISelectHandler
 {
     public void StartGame()
     {
@@ -16,5 +17,11 @@ public class ButtonsManager : MonoBehaviour
     public void InMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        FindObjectOfType<AudioManager>().Play("Button");
+        Debug.Log("PRESSED");
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartCutSceneLogin : MonoBehaviour
+public class StartCutSceneLogic : MonoBehaviour
 {
     [SerializeField] private enum intityTypesEnum {Player, Zombie};
     [SerializeField] private intityTypesEnum entityType;
@@ -21,7 +21,6 @@ public class StartCutSceneLogin : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Vector3.Distance(player.position, zombie.position));
         if (Vector3.Distance(player.position, zombie.position) >= 1)
         {
             if (entityType == intityTypesEnum.Zombie)

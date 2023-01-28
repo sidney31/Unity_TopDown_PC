@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private LayerMask tilesLayer;
 
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.Find("Player").GetComponentInChildren<PlayerController>();
         borderSR = border.GetComponent<SpriteRenderer>();
