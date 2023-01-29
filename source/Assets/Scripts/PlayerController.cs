@@ -170,14 +170,13 @@ public class PlayerController : MonoBehaviour
             enemy.gameObject.GetComponent<Zombie>().getDamage(damage);
         }
     }
-    public void getDamage()
+    public void getDamage(Transform zombieTransform = null)
     {
         currentHP--;
-        StartCoroutine(Recoil());
+        if (zombieTransform)
+            StartCoroutine(Recoil(zombieTransform));
         if (currentHP <= 0)
-        {
             Die();
-        }
     }
     private void Die()
     {
@@ -185,29 +184,10 @@ public class PlayerController : MonoBehaviour
         DieMenu.SetActive(true);
     }
 
-    private IEnumerator Recoil()
+    private IEnumerator Recoil(Transform zombieTransform)
     {
-        rb.AddForce(new Vector2(15 * -transform.localScale.x, 0), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(15 * -Vector2.Distance(transform.position, zombieTransform.position), 0), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.1f);
         rb.velocity = new Vector2(0, 0);
     }
-
-
-    //IEnumerator Recoil()
-    //{
-    //    cameraCanFollow = false;
-    //    Vector3 startPosition = transform.position;
-    //    do
-    //    {
-    //        transform.position += new Vector3(-.07f * transform.localScale.x, .2f, 0) * 20 * Time.deltaTime;
-    //        yield return null;
-    //    } while (transform.position.y <= startPosition.y + 0.8f);
-
-    //    do
-    //    {
-    //        transform.position += new Vector3(-.05f * transform.localScale.x, -.3f, 0) * 20 * Time.deltaTime;
-    //        yield return null;
-    //    } while (transform.position.y > startPosition.y + .3f);
-    //    cameraCanFollow = true;
-    //}
 }

@@ -69,7 +69,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -3501,12 +3501,12 @@ TextureImporter:
       plates_136: 354158246
       plates_133: 1167218100
       plates_127: 1906866021
-      plates_90: -1512233405
-      plates_60: 526326103
-      plates_36: -1578529957
       plates_148: -1537132983
-      plates_114: -1679697829
-      plates_124: 889886251
+      plates_14: -818476433
+      plates_36: -1578529957
+      plates_90: -1512233405
+      plates_51: -1257254859
+      plates_52: -773978511
       plates_21: 1896903727
       plates_47: 2083098993
       plates_138: 849773121
@@ -3514,10 +3514,10 @@ TextureImporter:
       plates_77: 253797124
       plates_62: -694817931
       plates_150: -2106955756
-      plates_51: -1257254859
-      plates_14: -818476433
+      plates_114: -1679697829
+      plates_60: 526326103
       plates_42: 1171002540
-      plates_52: -773978511
+      plates_124: 889886251
       plates_89: -720409253
       plates_17: 1350030711
       plates_33: -315113344

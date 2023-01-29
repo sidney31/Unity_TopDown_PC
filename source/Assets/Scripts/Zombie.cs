@@ -55,23 +55,17 @@ public class Zombie : MonoBehaviour
     }
     public void getDamage(int damage)
     {
-        if (currentHP > 0)
-        {
-            currentHP -= damage;
-            ps.Play();
-            StartCoroutine(Recoil());
-            //GetComponent<Rigidbody2D>().AddForce(new Vector2(-3 * transform.localScale.x, 0), ForceMode2D.Impulse);
-        }
-        else
-        {
+        currentHP -= damage;
+        ps.Play();
+        StartCoroutine(Recoil());
+        if (currentHP <= 0)
             Die();
-        }
     }
     private void Die()
     {
         anime.SetTrigger("Die");
         GetComponent<BoxCollider2D>().enabled = false;
-        this.enabled = false;
+        enabled = false;
         StartCoroutine(DestroyObject());
         grid.GetComponent<MapGenerator>().spawnedZombiesAmount--;
     }
@@ -101,7 +95,7 @@ public class Zombie : MonoBehaviour
 
     private IEnumerator Recoil()
     {
-        rb.AddForce(new Vector2(-15 * transform.localScale.x, 0), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(15 * -Vector2.Distance(transform.position, player.position), 0), ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.1f);
         rb.velocity = new Vector2(0, 0);
     }

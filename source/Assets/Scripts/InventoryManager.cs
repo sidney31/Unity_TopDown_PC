@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,9 +11,11 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private int maxStackItems = 20;
     [SerializeField] public int selectedSlot;
     [SerializeField] private Item[] defaultItems;
+    [SerializeField] private Item[] allItems;
     [SerializeField] private RectTransform MainInventoryWindow;
     [SerializeField] private GameObject ShowInvenoryButton;
     [SerializeField] private GameObject HideInvenoryButton;
+    [SerializeField] private Dictionary<Item, int> itemsInInventory = new Dictionary<Item, int>();
 
     private void Awake()
     {
@@ -57,6 +61,31 @@ public class InventoryManager : MonoBehaviour
         {
             changeSelectedSlot(newSelectedSlot - 7);
         }
+
+
+        foreach(Item item in allItems)
+        {
+            if (item.CheckCraftPossibility())
+            {
+
+            }
+        }
+    }
+
+    private void CheckAllItemsInInvenory()
+    {
+        itemsInInventory.Clear();
+        Debug.Log("-------------------------------");
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].transform.childCount != 0) 
+                itemsInInventory.Add(inventorySlots[i].GetComponentInChildren<InventoryItem>().item, inventorySlots[i].GetComponentInChildren<InventoryItem>().count);
+        }
+
+        foreach (var item in itemsInInventory)
+        {
+            Debug.Log($"{item.Value} & {item.Key}");
+        }
     }
 
     public void MainInvenoryWindowChangeShowState()
@@ -90,6 +119,7 @@ public class InventoryManager : MonoBehaviour
             {
                 itemInSlot.count++;
                 itemInSlot.refreshCount();
+                CheckAllItemsInInvenory();
                 return true;
             }
         }
@@ -101,9 +131,11 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot == null)
             {
                 spawnNewItem(item, slot);
+                CheckAllItemsInInvenory();
                 return true;
             }
         }
+
         return false;
     }
     private void spawnNewItem(Item item, InventorySlot slot)
@@ -130,7 +162,6 @@ public class InventoryManager : MonoBehaviour
                 {
                     itemInSlot.refreshCount();
                 }
-                Debug.Log("pass");
             }
             return item;
         }
