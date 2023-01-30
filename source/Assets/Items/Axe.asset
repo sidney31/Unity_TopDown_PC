@@ -16,7 +16,7 @@ MonoBehaviour:
   stackable: 0
   image: {fileID: 2049446232, guid: 67c03547d0e90234f8d8b2b1270ca4a4, type: 3}
   recipe:
-  - _itemName: {fileID: 11400000, guid: 4bc3eb023170c5749bd0eb9dd8ee2584, type: 2}
+  - itemName: {fileID: 11400000, guid: 4bc3eb023170c5749bd0eb9dd8ee2584, type: 2}
     count: 2
-  - _itemName: {fileID: 11400000, guid: 2383d5a16f396554e8feaa969c221954, type: 2}
+  - itemName: {fileID: 11400000, guid: 2383d5a16f396554e8feaa969c221954, type: 2}
     count: 1

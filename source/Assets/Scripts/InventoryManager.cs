@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject ShowInvenoryButton;
     [SerializeField] private GameObject HideInvenoryButton;
     [SerializeField] private Dictionary<Item, int> itemsInInventory = new Dictionary<Item, int>();
+
+    [SerializeField] private Transform craftArea;
+    [SerializeField] private GameObject craftableItemSlot;
 
     private void Awake()
     {
@@ -62,29 +66,34 @@ public class InventoryManager : MonoBehaviour
             changeSelectedSlot(newSelectedSlot - 7);
         }
 
-
-        foreach(Item item in allItems)
-        {
-            if (item.CheckCraftPossibility())
-            {
-
-            }
-        }
     }
+    
 
-    private void CheckAllItemsInInvenory()
+    // IT WORK
+
+    //public void test()  
+    //{
+    //    foreach (Item item in allItems)
+    //    {
+    //        CheckAllItemsInInvenory();
+    //        if (item.CheckCraftPossibility(itemsInInventory))
+    //        {
+    //            Debug.Log($"you can craft {item}");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log($"you cant craft {item}");
+    //        }
+    //    }
+    //}
+
+    public void CheckAllItemsInInvenory()
     {
         itemsInInventory.Clear();
-        Debug.Log("-------------------------------");
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             if (inventorySlots[i].transform.childCount != 0) 
                 itemsInInventory.Add(inventorySlots[i].GetComponentInChildren<InventoryItem>().item, inventorySlots[i].GetComponentInChildren<InventoryItem>().count);
-        }
-
-        foreach (var item in itemsInInventory)
-        {
-            Debug.Log($"{item.Value} & {item.Key}");
         }
     }
 
@@ -96,7 +105,23 @@ public class InventoryManager : MonoBehaviour
         MIWanimator.SetTrigger(state ? "Open" : "Close");
         ShowInvenoryButton.SetActive(!state);
         HideInvenoryButton.SetActive(state);
+
+        if (state)
+        {
+            foreach (Item item in allItems)
+            {
+                CheckAllItemsInInvenory();
+                if (item.CheckCraftPossibility(itemsInInventory))
+                {
+                    GameObject newCraftableSlot = Instantiate(craftableItemSlot, new Vector3(0, 0, 0), Quaternion.identity);
+                    newCraftableSlot.transform.parent = craftArea;
+                    newCraftableSlot.transform.localScale = new Vector3(1, 1, 1);
+                    //spawnNewItem(item, slot);
+                }
+            }
+        }
     }
+
     private void changeSelectedSlot(int newValue)
     {
         if (selectedSlot >= 0)
@@ -106,6 +131,7 @@ public class InventoryManager : MonoBehaviour
         inventorySlots[newValue].Select();
         selectedSlot = newValue;
     }
+
     public bool AddItem(Item item)
     {
         for (int i = 0; i < inventorySlots.Length; i++)
