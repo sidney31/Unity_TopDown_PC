@@ -8,15 +8,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("UI")]
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text countText;
+    [SerializeField] public int count;
+    [SerializeField] public bool inCraftMenu;
 
     [HideInInspector] public Item item;
-    public int count;
     [HideInInspector] public Transform parentAfterDrag;
 
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
         image.sprite = newItem.image;
+        //item.index = index;
         refreshCount();
     }
     public void refreshCount()
@@ -44,6 +46,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
         countText.gameObject.SetActive(count > 1);
+
+        if (inCraftMenu)
+        {
+            InventoryManager.Instance.takeItemAfterCraft(item);
+        }
     }
 
 

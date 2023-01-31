@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     public bool stackable = true;
     public Sprite image;
     public Recipe[] recipe;
+    public int index;
 
 
     public bool CheckCraftPossibility(Dictionary<Item, int> ItemCraftRecipe)

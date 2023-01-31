@@ -11,6 +11,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         Deselect();
     }
+
     public void Select()
     {
         image.color = selectedColor;

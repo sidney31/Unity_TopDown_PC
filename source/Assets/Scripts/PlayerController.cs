@@ -78,8 +78,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0) &&
             Time.time >= nextActionTime &&
-            InventoryManager.Instance.getSelectedItem(false) &&
-            InventoryManager.Instance.getSelectedItem(false).type == ItemType.sword &&
+            InventoryManager.Instance.getItemByIndex(InventoryManager.Instance.selectedSlot, false) &&
+            InventoryManager.Instance.getItemByIndex(InventoryManager.Instance.selectedSlot, false).type == ItemType.sword &&
             Physics2D.OverlapCircleAll(attackZone.position, attackRange, enemyLayer) != null)
         {
             anime.SetTrigger("Hit");

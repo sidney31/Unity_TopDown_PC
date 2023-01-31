@@ -108,7 +108,7 @@ public class TileLogic : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.transform.position) <= .7f)
         {
-            Item item = InventoryManager.Instance.getSelectedItem(false);
+            Item item = InventoryManager.Instance.getItemByIndex(InventoryManager.Instance.selectedSlot, false);
             if (item && sr.sprite != _sand)
             {
                 border.SetActive(item.type == ItemType.shovel);
@@ -179,7 +179,7 @@ public class TileLogic : MonoBehaviour
                             Debug.Log("seeded");
                             player.anime.SetTrigger("Sow");
                             sr.sprite = borderSR.sprite;
-                            InventoryManager.Instance.getSelectedItem(true);
+                            InventoryManager.Instance.getItemByIndex(InventoryManager.Instance.selectedSlot, true);
                             return;
                         }
                     }

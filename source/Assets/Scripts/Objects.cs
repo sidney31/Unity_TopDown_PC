@@ -81,7 +81,7 @@ public class Objects : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, player.transform.position) <= 2f)
         {
-            Item item = InventoryManager.Instance.getSelectedItem(false);
+            Item item = InventoryManager.Instance.getItemByIndex(InventoryManager.Instance.selectedSlot, false);
             if (item)
             {
                 if (typeName == objectType.Tree && item.type == ItemType.axe) //last changes!

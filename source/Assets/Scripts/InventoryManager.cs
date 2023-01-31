@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using Unity.VisualScripting;
+using static Item;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -100,13 +101,13 @@ public class InventoryManager : MonoBehaviour
     public void MainInvenoryWindowChangeShowState()
     {
         Animator MIWanimator = MainInventoryWindow.GetComponent<Animator>();
-        bool state = MainInventoryWindow.anchoredPosition.x < 0;
-        Debug.Log(MainInventoryWindow.anchoredPosition.x);
-        MIWanimator.SetTrigger(state ? "Open" : "Close");
-        ShowInvenoryButton.SetActive(!state);
-        HideInvenoryButton.SetActive(state);
+        bool inventoryState = MainInventoryWindow.position.x < 0;
+        //Debug.Log(MainInventoryWindow.anchoredPosition.x);
+        MIWanimator.SetTrigger(inventoryState ? "Open" : "Close");
+        ShowInvenoryButton.SetActive(!inventoryState);
+        HideInvenoryButton.SetActive(inventoryState);
 
-        if (state)
+        if (inventoryState)
         {
             foreach (Item item in allItems)
             {
@@ -114,10 +115,17 @@ public class InventoryManager : MonoBehaviour
                 if (item.CheckCraftPossibility(itemsInInventory))
                 {
                     GameObject newCraftableSlot = Instantiate(craftableItemSlot, new Vector3(0, 0, 0), Quaternion.identity);
-                    newCraftableSlot.transform.parent = craftArea;
+                    newCraftableSlot.transform.SetParent(craftArea);
                     newCraftableSlot.transform.localScale = new Vector3(1, 1, 1);
-                    //spawnNewItem(item, slot);
+                    spawnNewItem(item, newCraftableSlot);
                 }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < craftArea.childCount; i++)
+            {
+                Destroy(craftArea.GetChild(i).gameObject);
             }
         }
     }
@@ -164,15 +172,25 @@ public class InventoryManager : MonoBehaviour
 
         return false;
     }
+
     private void spawnNewItem(Item item, InventorySlot slot)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
-    public Item getSelectedItem(bool use)
+
+    private void spawnNewItem(Item item, GameObject slot)
     {
-        InventorySlot slot = inventorySlots[selectedSlot];
+        GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+        InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+        inventoryItem.InitialiseItem(item);
+        inventoryItem.inCraftMenu = true;
+    }
+
+    public Item getItemByIndex(int index, bool use)
+    {
+        InventorySlot slot = inventorySlots[index];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
         if (itemInSlot)
         {
@@ -192,5 +210,13 @@ public class InventoryManager : MonoBehaviour
             return item;
         }
         return null;
+    }
+
+    public void takeItemAfterCraft(Item item)
+    {
+        foreach (Recipe resource in item.recipe)
+        {
+            getItemByIndex(item.index, true);
+        }
     }
 }
