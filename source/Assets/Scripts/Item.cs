@@ -14,7 +14,7 @@ public class Item : ScriptableObject
     public bool CheckCraftPossibility(Dictionary<Item, int> ItemCraftRecipe)
     {
         bool result = false;
-        Debug.Log(recipe.Length);
+        //Debug.Log(recipe.Length);
         foreach(Recipe resource in recipe)
         {
             ItemCraftRecipe.TryGetValue(resource.itemName, out int value);
@@ -30,6 +30,18 @@ public class Item : ScriptableObject
             }
         }
         return result;
+    }
+
+    public void GetItemsAfterCraft()
+    {
+        foreach (Recipe resource in recipe)
+        {
+            Dictionary<Item, int> itemsInInventory = InventoryManager.Instance.itemsInInventory;
+            for (; itemsInInventory[resource.itemName] < itemsInInventory[resource.itemName] - resource.count;)
+            {
+                InventoryManager.Instance.getItemByIndex(index, true);
+            }
+        }
     }
 
     [System.Serializable]

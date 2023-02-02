@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
 using static Item;
 
 public class InventoryManager : MonoBehaviour
@@ -17,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RectTransform MainInventoryWindow;
     [SerializeField] private GameObject ShowInvenoryButton;
     [SerializeField] private GameObject HideInvenoryButton;
-    [SerializeField] private Dictionary<Item, int> itemsInInventory = new Dictionary<Item, int>();
+    [SerializeField] public Dictionary<Item, int> itemsInInventory = new Dictionary<Item, int>();
 
     [SerializeField] private Transform craftArea;
     [SerializeField] private GameObject craftableItemSlot;
@@ -102,7 +100,6 @@ public class InventoryManager : MonoBehaviour
     {
         Animator MIWanimator = MainInventoryWindow.GetComponent<Animator>();
         bool inventoryState = MainInventoryWindow.position.x < 0;
-        //Debug.Log(MainInventoryWindow.anchoredPosition.x);
         MIWanimator.SetTrigger(inventoryState ? "Open" : "Close");
         ShowInvenoryButton.SetActive(!inventoryState);
         HideInvenoryButton.SetActive(inventoryState);
@@ -164,7 +161,7 @@ public class InventoryManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                spawnNewItem(item, slot);
+                spawnNewItem(item, slot, i);
                 CheckAllItemsInInvenory();
                 return true;
             }
@@ -173,11 +170,11 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    private void spawnNewItem(Item item, InventorySlot slot)
+    private void spawnNewItem(Item item, InventorySlot slot, int index)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitialiseItem(item);
+        inventoryItem.InitialiseItem(item, index);
     }
 
     private void spawnNewItem(Item item, GameObject slot)
@@ -210,13 +207,5 @@ public class InventoryManager : MonoBehaviour
             return item;
         }
         return null;
-    }
-
-    public void takeItemAfterCraft(Item item)
-    {
-        foreach (Recipe resource in item.recipe)
-        {
-            getItemByIndex(item.index, true);
-        }
     }
 }

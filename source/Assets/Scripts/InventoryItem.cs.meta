@@ -3,7 +3,13 @@ guid: 2538996adbe1ce344bb1564b5653df34
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - image: {instanceID: 0}
+  - countText: {instanceID: 0}
+  - item: {instanceID: 0}
+  - parentAfterDrag: {instanceID: 0}
+  - parentBeforeDrag: {instanceID: 0}
+  - InventorySlot: {fileID: 981232326954804806, guid: 5a6325ad8ddcaef48a7a57fd525673bc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

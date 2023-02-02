@@ -306,6 +306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 5815059029973178944}
   countText: {fileID: 888925678177161402}
-  item: {fileID: 0}
+  InventorySlot: {fileID: 981232326954804806, guid: 5a6325ad8ddcaef48a7a57fd525673bc, type: 3}
   count: 1
+  inCraftMenu: 0
+  item: {fileID: 0}
   parentAfterDrag: {fileID: 0}
+  parentBeforeDrag: {fileID: 0}

@@ -2505,11 +2505,9 @@ MonoBehaviour:
   maxStackItems: 100
   selectedSlot: -1
   defaultItems:
-  - {fileID: 11400000, guid: f3f62e4d69d660c4ebeb7316c013d391, type: 2}
-  - {fileID: 11400000, guid: a284597539ea4064597f34c69554d410, type: 2}
-  - {fileID: 11400000, guid: d7a29b5c43faa12429a91acf329ecdb7, type: 2}
-  - {fileID: 11400000, guid: ac6770e6888c30241826f72b251d5396, type: 2}
-  - {fileID: 11400000, guid: a1bad08d630eb004b9af72872ecca9fd, type: 2}
+  - {fileID: 11400000, guid: 4bc3eb023170c5749bd0eb9dd8ee2584, type: 2}
+  - {fileID: 11400000, guid: 4bc3eb023170c5749bd0eb9dd8ee2584, type: 2}
+  - {fileID: 11400000, guid: 2383d5a16f396554e8feaa969c221954, type: 2}
   allItems:
   - {fileID: 11400000, guid: a284597539ea4064597f34c69554d410, type: 2}
   - {fileID: 11400000, guid: d7a29b5c43faa12429a91acf329ecdb7, type: 2}
